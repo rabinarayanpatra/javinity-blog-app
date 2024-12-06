@@ -1,4 +1,4 @@
-package com.javinity;
+package com.javinity.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
