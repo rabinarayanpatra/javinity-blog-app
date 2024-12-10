@@ -1,6 +1,6 @@
 package com.javinity.app.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import com.javinity.app.enums.Role;
 
@@ -21,7 +21,7 @@ import lombok.Setter;
  * @see BaseEntity
  * @see Role
  */
-@Entity
+@Entity( name = "users" )
 @Getter
 @Setter
 public class User extends BaseEntity {
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
   @Column( nullable = false )
   private Boolean emailVerified;
 
-  private LocalDateTime lastLogin;
+  private Instant lastLogin;
 
   @Enumerated( EnumType.STRING )
   @Column( nullable = false )
