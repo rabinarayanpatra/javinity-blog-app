@@ -1,6 +1,6 @@
 package com.javinity.app.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.javinity.app.util.DateTimeUtils;
@@ -39,10 +39,10 @@ public abstract class BaseEntity {
   protected UUID id;
 
   @Column( nullable = false, updatable = false )
-  protected LocalDateTime createdAt;
+  protected Instant createdAt;
 
   @Column( nullable = false )
-  protected LocalDateTime updatedAt;
+  protected Instant updatedAt;
 
   /**
    * Lifecycle method triggered before the entity is persisted.
@@ -52,8 +52,9 @@ public abstract class BaseEntity {
    */
   @PrePersist
   protected void onCreate() {
-    this.createdAt = DateTimeUtils.getCurrentDateTime();
-    this.updatedAt = DateTimeUtils.getCurrentDateTime();
+    final Instant currentInstant = DateTimeUtils.getCurrentInstant();
+    this.createdAt = currentInstant;
+    this.updatedAt = currentInstant;
   }
 
   /**
@@ -63,6 +64,6 @@ public abstract class BaseEntity {
    */
   @PreUpdate
   protected void onUpdate() {
-    this.updatedAt = DateTimeUtils.getCurrentDateTime();
+    this.updatedAt = DateTimeUtils.getCurrentInstant();
   }
 }

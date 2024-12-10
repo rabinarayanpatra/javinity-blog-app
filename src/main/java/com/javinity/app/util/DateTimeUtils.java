@@ -1,53 +1,41 @@
 package com.javinity.app.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
- * Utility class for working with date and time.
- *
- * <p>Provides static methods to retrieve the current date, time, and date-time
- * based on the system's default time zone.</p>
- *
- * <p>This class cannot be instantiated.</p>
+ * Utility class providing methods for date and time operations.
+ * <p>
+ * This class is not intended to be instantiated.
+ * </p>
  */
 public class DateTimeUtils {
 
   /**
-   * Private constructor to prevent instantiation of the utility class.
+   * Private constructor to prevent instantiation of this utility class.
    *
-   * <p>Throws {@link UnsupportedOperationException} if instantiation is attempted.</p>
+   * @throws UnsupportedOperationException always thrown to enforce non-instantiability
    */
   private DateTimeUtils() {
     throw new UnsupportedOperationException( "Utility class" );
   }
 
   /**
-   * Retrieves the current date using the system's default time zone.
+   * Retrieves the current instant in UTC.
    *
-   * @return the current date as a {@link LocalDate}.
+   * @return the current {@link Instant}
    */
-  public static LocalDate getCurrentDate() {
-    return LocalDate.now( ZoneId.systemDefault() );
+  public static Instant getCurrentInstant() {
+    return Instant.now();
   }
 
   /**
-   * Retrieves the current time using the system's default time zone.
+   * Retrieves the current date and time in the system default time zone.
    *
-   * @return the current time as a {@link LocalTime}.
+   * @return the current {@link ZonedDateTime}
    */
-  public static LocalTime getCurrentTime() {
-    return LocalTime.now( ZoneId.systemDefault() );
-  }
-
-  /**
-   * Retrieves the current date and time using the system's default time zone.
-   *
-   * @return the current date and time as a {@link LocalDateTime}.
-   */
-  public static LocalDateTime getCurrentDateTime() {
-    return LocalDateTime.now( ZoneId.systemDefault() );
+  public static ZonedDateTime getCurrentZonedDateTime() {
+    return ZonedDateTime.now( ZoneId.systemDefault() );
   }
 }

@@ -1,9 +1,8 @@
 package com.javinity.app.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -14,53 +13,34 @@ import static org.mockito.Mockito.mockStatic;
 class DateTimeUtilsTest {
 
   @Test
-  void testGetCurrentDate() {
+  void testGetCurrentInstant() {
     // given
-    final LocalDate expectedDate = LocalDate.of( 2023, 12, 7 ); // Sample date
-    final ZoneId defaultZoneId = ZoneId.systemDefault();
+    final Instant expectedInstant = Instant.parse( "2023-12-07T14:30:00Z" ); // Sample Instant
 
-    try( final MockedStatic<LocalDate> mockedLocalDate = mockStatic( LocalDate.class ) ) {
-      mockedLocalDate.when( () -> LocalDate.now( defaultZoneId ) ).thenReturn( expectedDate );
+    try( final MockedStatic<Instant> mockedInstant = mockStatic( Instant.class ) ) {
+      mockedInstant.when( Instant::now ).thenReturn( expectedInstant );
 
       // when
-      final LocalDate result = DateTimeUtils.getCurrentDate();
+      final Instant result = DateTimeUtils.getCurrentInstant();
 
       // then
-      assertThat( result ).isEqualTo( expectedDate );
+      assertThat( result ).isEqualTo( expectedInstant );
     }
   }
 
   @Test
-  void testGetCurrentTime() {
+  void testGetCurrentZonedDateTime() {
     // given
-    final LocalTime expectedTime = LocalTime.of( 14, 30, 0 ); // Sample time
-    final ZoneId defaultZoneId = ZoneId.systemDefault();
+    final ZonedDateTime expectedZonedDateTime = ZonedDateTime.of( 2023, 12, 7, 14, 30, 0, 0, ZoneId.systemDefault() );
 
-    try( final MockedStatic<LocalTime> mockedLocalTime = mockStatic( LocalTime.class ) ) {
-      mockedLocalTime.when( () -> LocalTime.now( defaultZoneId ) ).thenReturn( expectedTime );
+    try( final MockedStatic<ZonedDateTime> mockedZonedDateTime = mockStatic( ZonedDateTime.class ) ) {
+      mockedZonedDateTime.when( () -> ZonedDateTime.now( ZoneId.systemDefault() ) ).thenReturn( expectedZonedDateTime );
 
       // when
-      final LocalTime result = DateTimeUtils.getCurrentTime();
+      final ZonedDateTime result = DateTimeUtils.getCurrentZonedDateTime();
 
       // then
-      assertThat( result ).isEqualTo( expectedTime );
-    }
-  }
-
-  @Test
-  void testGetCurrentDateTime() {
-    // given
-    final LocalDateTime expectedDateTime = LocalDateTime.of( 2023, 12, 7, 14, 30, 0 ); // Sample date-time
-    final ZoneId defaultZoneId = ZoneId.systemDefault();
-
-    try( final MockedStatic<LocalDateTime> mockedLocalDateTime = mockStatic( LocalDateTime.class ) ) {
-      mockedLocalDateTime.when( () -> LocalDateTime.now( defaultZoneId ) ).thenReturn( expectedDateTime );
-
-      // when
-      final LocalDateTime result = DateTimeUtils.getCurrentDateTime();
-
-      // then
-      assertThat( result ).isEqualTo( expectedDateTime );
+      assertThat( result ).isEqualTo( expectedZonedDateTime );
     }
   }
 }
