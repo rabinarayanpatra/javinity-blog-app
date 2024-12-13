@@ -18,7 +18,8 @@ class DateTimeUtilsTest {
     final Instant expectedInstant = Instant.parse( "2023-12-07T14:30:00Z" ); // Sample Instant
 
     try( final MockedStatic<Instant> mockedInstant = mockStatic( Instant.class ) ) {
-      mockedInstant.when( Instant::now ).thenReturn( expectedInstant );
+      mockedInstant.when( Instant::now )
+                   .thenReturn( expectedInstant );
 
       // when
       final Instant result = DateTimeUtils.getCurrentInstant();
@@ -34,7 +35,8 @@ class DateTimeUtilsTest {
     final ZonedDateTime expectedZonedDateTime = ZonedDateTime.of( 2023, 12, 7, 14, 30, 0, 0, ZoneId.systemDefault() );
 
     try( final MockedStatic<ZonedDateTime> mockedZonedDateTime = mockStatic( ZonedDateTime.class ) ) {
-      mockedZonedDateTime.when( () -> ZonedDateTime.now( ZoneId.systemDefault() ) ).thenReturn( expectedZonedDateTime );
+      mockedZonedDateTime.when( () -> ZonedDateTime.now( ZoneId.systemDefault() ) )
+                         .thenReturn( expectedZonedDateTime );
 
       // when
       final ZonedDateTime result = DateTimeUtils.getCurrentZonedDateTime();
